@@ -1,0 +1,20 @@
+python manage.py shell
+
+from users.models import User
+
+dir(User) // Without arguments, return the **list of names** in the current local scope. With an argument, attempt to return a list of valid attributes for that object
+vars(User) // return the **__dict__ attribute** for a module, class, instance, or any other object with a __dict__ attribute
+
+User.objects
+
+User.objects.all()  // returns a queryset
+
+all_user = User.objects.all()
+all_user.filter(superhost=true)
+
+user1 = User.objects.get(username="user1")
+
+_set 으로 Foreign Key 에 접근한다
+
+ex)
+user1.room_set.all()

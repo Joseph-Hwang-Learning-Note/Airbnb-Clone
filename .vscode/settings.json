@@ -3,5 +3,11 @@
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
-    "python.linting.flake8Args": ["--max-line-length=92"]
+    "python.linting.flake8Args": ["--max-line-length=92"],
+    "emmet.includeLanguages": {"django-html": "html"},
+    "files.associations": {
+        "*.html": "html",
+        "**/templates/*.html": "django-html",
+        "**/templates/*": "django-txt"
+    }
 }
