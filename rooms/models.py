@@ -74,7 +74,7 @@ class Room(core_models.TimeStampedModel):
     beds = models.IntegerField()
     bedrooms = models.IntegerField()
     baths = models.IntegerField()
-    guests = models.IntegerField()
+    guests = models.IntegerField(help_text="the number of guests")
     check_in = models.TimeField()
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
@@ -109,3 +109,7 @@ class Room(core_models.TimeStampedModel):
             for review in all_reviews:
                 all_ratings += review.rating_average()
             return round((all_ratings / len(all_reviews)), 2)
+
+    def first_photo(self):
+        (photo,) = self.photos.all()[:1]
+        return photo.file.url
