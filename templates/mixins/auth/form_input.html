@@ -1,7 +1,8 @@
 <div class="input {% if field.errors %}
 has_error
 {% endif %}">
-  {{field}}
+<!-- In Django, Use label -->
+  {{field}} 
   {% if field.errors %}
     
   {% for error in field.errors %}

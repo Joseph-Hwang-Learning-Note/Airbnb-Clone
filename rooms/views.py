@@ -17,6 +17,7 @@ class HomeView(ListView):
 
     """ HomeView Definition """
 
+    template_name = "rooms/room_list.html"
     model = models.Room
     paginate_by = 12
     paginate_orphans = 5

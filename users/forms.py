@@ -2,13 +2,15 @@ from django import forms
 from django.db.models import fields
 from django.forms import widgets
 from . import models
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
 
 
 class LoginForm(forms.Form):
 
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
 
     def clean(self):
         email = self.cleaned_data.get("email")
@@ -119,3 +121,37 @@ class SignUpForm(forms.ModelForm):
 #         user.first_name = first_name
 #         user.last_name = last_name
 #         user.save()
+
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = (
+            "email",
+            "first_name",
+            "last_name",
+            "avatar",
+            "gender",
+            "bio",
+            "birthdate",
+            "language",
+            "currency",
+        )
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "First name"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Last name"}),
+            "bio": forms.Textarea(attrs={"placeholder": "Bio"}),
+            "birthdate": forms.DateInput(attrs={"placeholder": "Birth Date"}),
+        }
+
+
+class UpdatePasswordForm(PasswordChangeForm):
+    class Meta:
+        fields = ("old_password", "new_password1", "new_password2")
+        widgets = {
+            "old_password": forms.PasswordInput(attrs={"placeholder": "Old Password"}),
+            "new_password1": forms.PasswordInput(attrs={"placeholder": "New Password"}),
+            "new_password2": forms.PasswordInput(
+                attrs={"placeholder": "New Password Confirm"}
+            ),
+        }

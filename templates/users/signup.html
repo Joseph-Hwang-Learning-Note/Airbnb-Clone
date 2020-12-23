@@ -9,24 +9,12 @@ Sign Up
 
 {% block content %}
 
+<div class="container mx-auto w-11/12 my-10 flex flex-col items-center border p-6 border-gray-400 lg:w-5/12 md:w-7/12 xl:w-1/4 sm:w-9/12">
+
 {% include "partials/social_login.html" %}
 
-<form method="POST" action="{% url "users:signup" %}">
-    {% csrf_token %}
+{% include "mixins/auth/auth_form.html" with form=form cta="Sign up" %}
 
-    {% if form.non_field_errors %}
-      
-    {% for error in form.non_field_errors %}
-      <span class="text-red-700 font-medium text-sm">{{error}}</span>
-    {% endfor %}
-
-    {% endif %}
-
-    {% for field in form %}
-        {% include "partials/form_input.html" %}
-    {% endfor %}
-
-    <button class="btn bg-red-500 text-white">Sign up</button>
-</form>
+</div>
   
 {% endblock content %}

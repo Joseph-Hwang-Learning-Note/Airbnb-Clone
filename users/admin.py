@@ -45,3 +45,13 @@ class CustomUserAdmin(UserAdmin):
         "email_verified",
         "login_method",
     )
+
+    def is_staff(self, obj):
+        return obj.is_staff
+
+    is_staff.short_description = "Staff"
+
+    def is_superuser(self, obj):
+        return obj.is_superuser
+
+    is_superuser.short_description = "Superuser"
