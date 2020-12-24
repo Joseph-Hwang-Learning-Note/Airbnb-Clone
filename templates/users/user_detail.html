@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block page_title %}
-{{user_obj.first_name}}'s Profile
+{{user.first_name}}'s Profile
 {% endblock page_title %}
 
 
 {% block content %}
 
-<div class="h-full sm:h-h-75">
+<div class="h-full sm:h-h-100">
 
     
     <div class="container mx-auto my-10 flex flex-col items-center border p-6 border-gray-400
@@ -16,10 +16,10 @@
         {% include "mixins/user_avatar.html" with user=user %}
         <div class="flex items-center">
             <span class="font-semibold text-3xl mt-1">
-                {{user_obj.first_name}}
+                {{user.first_name}}
             </span>
             <span>
-                {% if user_obj.superhost %}
+                {% if user.superhost %}
                   <i class="fas fa-check-circle text-green-400 ml-1"></i>
                 {% endif %}
         
@@ -27,11 +27,11 @@
     
         </div>
         <span class="text-lg mb-5">
-            {{user_obj.bio}}
+            {{user.bio}}
     
         </span>
     
-        {% if user == user_obj %}
+        {% if user == user %}
         <a href="{% url 'users:update' %}" class="btn-link">Edit Profile</a>
           
         {% endif %}
@@ -39,11 +39,11 @@
     
         </div>
     
-        {% if user_obj.rooms.count > 0 %}
+        {% if user.rooms.count > 0 %}
         <div class="container flex flex-col items-center justify-center pb-10 mx-auto">
-            <h3 class="mb-12 text-2xl">{{user_obj.first_name}}'s Rooms</h3>
+            <h3 class="mb-12 text-2xl">{{user.first_name}}'s Rooms</h3>
             <div class="flex flex-wrap -mx-30 mb-10 w-full">
-                {% for room in user_obj.rooms.all %}
+                {% for room in user.rooms.all %}
                     {% include "mixins/room_card.html" with room=room %}
                 {% endfor %} 
             </div>

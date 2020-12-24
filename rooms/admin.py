@@ -116,7 +116,7 @@ class RoomAdmin(admin.ModelAdmin):
 
     raw_id_fields = ("host",)
 
-    search_fields = ("city", "host__username")
+    search_fields = ("city", "host__username", "name")
 
     filter_horizontal = (
         "amenities",
@@ -140,6 +140,8 @@ class RoomAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
 
     """ Photo Admin Definition """
+
+    search_fields = ("caption__icontains",)  # icontains lookup does like "LIKE" in sql
 
     list_display = ("__str__", "get_thumbnail")
 

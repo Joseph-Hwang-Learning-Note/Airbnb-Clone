@@ -8,6 +8,7 @@ from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.decorators import login_required
 
 # from django.views import View
 from django.urls import reverse_lazy, reverse
@@ -313,3 +314,13 @@ class UpdatePasswordView(
 
     def get_success_url(self):
         return self.request.user.get_absolute_url()
+
+
+@login_required
+def switch_hosting(request):
+    # request.session.pop("is_hosting",True)
+    try:
+        del request.session["is_hosting"]
+    except KeyError:
+        request.session["is_hosting"] = True
+    return redirect(reverse("core:home"))

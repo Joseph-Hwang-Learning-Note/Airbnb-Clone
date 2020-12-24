@@ -40,18 +40,18 @@ class CustomUserAdmin(UserAdmin):
         "language",
         "currency",
         "superhost",
-        "is_staff",
-        "is_superuser",
+        "staff",
+        "superuser",
         "email_verified",
         "login_method",
     )
 
-    def is_staff(self, obj):
+    def staff(self, obj):
         return obj.is_staff
 
-    is_staff.short_description = "Staff"
+    staff.short_description = "Staff"
 
-    def is_superuser(self, obj):
+    def superuser(self, obj):
         return obj.is_superuser
 
-    is_superuser.short_description = "Superuser"
+    superuser.short_description = "Superuser"
