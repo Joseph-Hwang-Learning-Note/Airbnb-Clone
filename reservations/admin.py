@@ -1,9 +1,10 @@
 from django.contrib import admin
+from django.contrib.admin.options import ModelAdmin
 from . import models
 
 
 @admin.register(models.Reservation)
-class ReservationAdmin(admin.ModelAdmin):
+class ReservationAdmin(ModelAdmin):
 
     """ Reservation Admin Definition """
 
@@ -18,3 +19,9 @@ class ReservationAdmin(admin.ModelAdmin):
     )
 
     list_filter = ("status",)
+
+
+@admin.register(models.BookedDay)
+class BookedDayAdmin(ModelAdmin):
+
+    list_display = ("day", "reservation")

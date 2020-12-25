@@ -1,4 +1,6 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
+{% load is_booked %}
+<!-- If u made a folder or file, u should kill ur server and restart it -->
 
 {% block page_title %} 
 {{room.name}}
@@ -8,9 +10,9 @@
 
 <div class="container max-w-full h-h-50 sm:h-h-75 sm:mb-20 flex -mt-5 bg-gray-200">
   {% if room.first_photo %}
-  <div class="w-1/2 h-full rounded-lg mb-2 bg-center bg-cover" style="background-image: url({{room.first_photo}});"></div>
+  <div class="w-full sm:w-1/2 h-full rounded-lg mb-2 bg-center bg-cover" style="background-image: url({{room.first_photo}});"></div>
   {% else %}
-  <div class="w-1/2 h-full rounded-lg mb-2 bg-gray-200 flex justify-center items-center">
+  <div class="w-full sm:w-1/2 h-full rounded-lg mb-2 bg-gray-200 flex justify-center items-center">
     <span class="text-white font-semibold text-3xl">No Photos</span>
   </div>
   {% endif %}
@@ -25,15 +27,56 @@
   </div>
 </div>
 
-<div class="container mx-auto flex sm:flex-row-reverse justify-around flex-wrap pb-56">
+<div class="container mx-auto flex sm:flex-row-reverse justify-center flex-wrap pb-56">
   <div class="mt-1 mb-3 sm:my-0 w-full sm:w-1/3">
     {% if room.host == user %}
-    <a href="{% url 'rooms:edit' room.pk %}" class="btn-link block mb-3 bg-green-500">Edit Room</a>
-    <a href="{% url 'rooms:delete' room.pk %}" class="btn-link block">Delete Room</a>
-    <div class="w-full text-center">
-      <!-- <span class="font-extrabold mx-auto mt-px text-yellow-600" >WARNING!!! THIS ACTION IS NOT RETREATABLE!!</span> -->
+    <a href="{% url 'rooms:edit' room.pk %}" class="btn-link block mb-3 bg-green-500 sm:ml-10">Edit Room</a>
+    <a href="{% url 'rooms:delete' room.pk %}" class="btn-link block sm:ml-10">Delete Room</a>
+    <!-- <div class="w-full text-center">
+      <span class="font-extrabold mx-auto mt-px text-yellow-600" >WARNING!!! THIS ACTION IS NOT RETREATABLE!!</span>
+      
+    </div> -->
+    {% else %}
+    {% if not request.session.is_hosting %}
+      {% for calendar in room.get_calendars %}
+      <div class="mb-20 flex flex-col items-center">
+        <div>
+          <span class="text-center text-lg block mb-8 font-semibold">{{calendar.get_month}}/{{calendar.year}}</span>
+        </div>
+        <div class="grid grid-cols-7 mb-4 gap-x-6 justify-center mx-5 sm:mx-0">
+          {% for day in calendar.day_names %}
+          <span class="block mb-5 font-semibold">
+            {{day}}
+          </span>
+          {% endfor %}
+          {% for day in calendar.get_days %}
+            {% is_booked room day as is_booked_bool %}
+            {% if day.number != 0 %}
+            {% if day.past %}
+            <span class="bg-gray-200 text-center rounded text-gray-300 
+            p-1  mb-3 block" 
+            style="width:150%; margin-left: -25%;">{{day.number}}</span>
+            {% elif is_booked_bool %}
+            <span class="bg-gray-200 text-center rounded text-gray-300 
+            p-1  mb-3 block line-through" 
+            style="width:150%; margin-left: -25%;">{{day.number}}</span>
+            {% else %}
+            <a class="bg-gray-200 text-center rounded text-gray-700 
+            p-1 hover:bg-green-400 hover:text-white cursor-pointer mb-3 block" 
+            style="width:150%; margin-left: -25%;" href="{% url 'reservations:create' room.pk day.year day.month day.number %}">{{day.number}}</a>
+            {% endif %}
+            {% else %}
+            <span class="mb-3 block"></span>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="grid grid-cols-7 mb-4 justify-center gap-14">
 
-    </div>
+        </div>
+
+      </div>
+      {% endfor %}
+    {% endif %}
       
     {% endif %}
   </div>

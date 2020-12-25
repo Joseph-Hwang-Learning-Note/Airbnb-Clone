@@ -6,12 +6,12 @@
 }
 
 .nav_link {
-    @apply ml-8 font-semibold border-b-2 border-white h-full flex items-center text-xs sm:text-sm;
+    @apply ml-8 font-semibold sm:border-b-2 border-white h-full flex items-center text-xs sm:text-sm;
     a {
         @apply py-12 px-5;
     }
     &:hover{
-        @apply border-gray-600;
+        @apply bg-green-400 sm:border-gray-600;
     }
 }
 
