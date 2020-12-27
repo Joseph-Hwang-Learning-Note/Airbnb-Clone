@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,11 @@
           margin-right: 5px;
 
         }
+        .galaxy-fold-photo {
+          width: 8rem;
+          height: 8rem;
+          box-sizing: border-box;
+        }
       }
     </style>
   </head>
@@ -30,7 +36,7 @@
         {% block search-bar %}
 
         <form action="{% url "rooms:search" %}" method="GET" class="w-9/12">
-          <input value="{{city}}" name="city" placeholder="Search by City" 
+          <input value="{{city}}" name="city" placeholder="{% trans "Search by City" %}" 
           class="search-box border px-5 py-3 font-semibold rounded-sm w-full shadow-md hover:shadow-lg 
           placeholder-gray-500 focus:outline-none truncate" style="transition: box-shadow 0.2s linear;">
         </form>
@@ -44,6 +50,19 @@
     {% endblock content %} 
 
     {% include "partials/footer.html" %}
-
+    <script>
+      function goBack() {
+        window.history.back()
+      }
+      </script>
+    <script>
+      const langSelect = document.getElementById("js-lang");
+      const handleLangChange = () => {
+        const selected = langSelect.value;
+        fetch(`{% url 'users:switch-lang' %}?lang=${selected}`)
+        .then(() => window.location.reload())
+      }
+      langSelect.addEventListener("change",handleLangChange);
+    </script>
   </body>
 </html>

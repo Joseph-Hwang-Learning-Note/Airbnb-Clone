@@ -20,6 +20,11 @@ class ReservationAdmin(ModelAdmin):
 
     list_filter = ("status",)
 
+    search_fields = (
+        "room__name__icontains",
+        "guest__username__icontains",
+    )
+
 
 @admin.register(models.BookedDay)
 class BookedDayAdmin(ModelAdmin):

@@ -376,3 +376,8 @@ class CreateRoomView(LoggedInOnlyView, FormView):
         form.save_m2m()  # Important Part!!
         messages.success(self.request, "Room Created")
         return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))
+
+
+class RoomReservationsView(LoggedInOnlyView, RoomDetail):
+
+    template_name = "rooms/room_reservations.html"

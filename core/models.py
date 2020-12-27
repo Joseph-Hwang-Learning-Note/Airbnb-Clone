@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from . import managers
 
 
 class TimeStampedModel(models.Model):
@@ -8,6 +9,7 @@ class TimeStampedModel(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    objects = managers.CustomModelManager()
 
     # created = models.DateTimeField(default=timezone.now())
     # updated = models.DateTimeField(default=timezone.now())

@@ -1,14 +1,16 @@
 import os
-from django.contrib.auth.forms import UserCreationForm
 import requests
 
 # from django.forms.forms import Form
+from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import FormView
 from django.views.generic import DetailView
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.utils import translation
 
 # from django.views import View
 from django.urls import reverse_lazy, reverse
@@ -232,6 +234,7 @@ def kakao_callback(request):
         )
         profile_json = profile_request.json()
         email = profile_json.get("kakao_account", None).get("email", None)
+        email = str(email)
 
         if email is None:
             raise KakaoException("Please also give me your email")
@@ -324,3 +327,15 @@ def switch_hosting(request):
     except KeyError:
         request.session["is_hosting"] = True
     return redirect(reverse("core:home"))
+
+
+class MyReservationsView(mixins.LoggedInOnlyView, UserProfileView):
+
+    template_name = "users/my_reservations.html"
+
+
+def switch_lang(request):
+    lang = request.GET.get("lang", None)
+    if lang is not None:
+        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    return HttpResponse(status=200)

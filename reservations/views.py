@@ -2,10 +2,11 @@ import datetime
 from django.http import request
 from django.http.response import Http404
 from django.views.generic import View
-from django.core.checks import messages
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls.base import reverse
 from rooms import models as room_models
+from reviews import forms as review_forms
 from . import models
 
 
@@ -14,8 +15,8 @@ class CreateError(Exception):
 
 
 def create(request, room, year, month, day):
+    date_obj = datetime.datetime(year=year, month=month, day=day)
     try:
-        date_obj = datetime.datetime(year=year, month=month, day=day)
         room = room_models.Room.objects.get(pk=room)
         models.BookedDay.objects.get(day=date_obj, reservation__room=room)
         raise CreateError()
@@ -41,6 +42,25 @@ class ReservationDetailView(View):
             and reservation.room.host != self.request.user
         ):
             raise Http404()
+        form = review_forms.CreateReviewForm()
         return render(
-            self.request, "reservations/detail.html", {"reservation": reservation}
+            self.request,
+            "reservations/detail.html",
+            {"reservation": reservation, "form": form},
         )
+
+
+def edit_reservation(request, pk, verb):
+    reservation = models.Reservation.objects.get_or_none(pk=pk)
+    if not reservation or (
+        reservation.guest != request.user and reservation.room.host != request.user
+    ):
+        raise Http404()
+    if verb == "confirm":
+        reservation.status = models.Reservation.STATUS_CONFIRMED
+    elif verb == "cancel":
+        reservation.status = models.Reservation.STATUS_CANCELED
+        models.BookedDay.objects.filter(reservation=reservation).delete()
+    reservation.save()
+    messages.success(request, "Reservation Updated")
+    return redirect(reverse("reservations:detail", kwargs={"pk": reservation.pk}))

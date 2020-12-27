@@ -17,5 +17,11 @@ urlpatterns = [
     path("update-profile/", views.UpdateProfileView.as_view(), name="update"),
     path("update-password/", views.UpdatePasswordView.as_view(), name="password"),
     path("<int:pk>/", views.UserProfileView.as_view(), name="profile"),
+    path(
+        "<int:pk>/my_reservations",
+        views.MyReservationsView.as_view(),
+        name="my-reservations",
+    ),
     path("switch-hosting/", views.switch_hosting, name="switch-hosting"),
+    path("switch-lang/", views.switch_lang, name="switch-lang"),
 ]

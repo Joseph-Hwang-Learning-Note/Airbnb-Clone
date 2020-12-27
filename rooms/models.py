@@ -137,3 +137,7 @@ class Room(core_models.TimeStampedModel):
             this_month_cal = Calendar(this_year, this_month)
             next_month_cal = Calendar(this_year, this_month + 1)
         return [this_month_cal, next_month_cal]
+
+    def room_reservations(self):
+        room_reservations = self.reservations.all()
+        return room_reservations

@@ -9,6 +9,13 @@
 {% endblock search-bar %}
 
 {% block content %}
+<style>
+    @media (max-width: 640px) {
+        .mobile {
+            width:89%;
+        }
+    }
+</style>
 
 <div class="container mx-auto my-10 flex flex-col">
 
@@ -31,23 +38,43 @@
             </div>
             <div class="ml-5 flex flex-col">
                 <span class="font-medium mb-1">Contact your Airbnb Host</span>
-                <a class="font-medium text-green-500" href="#">Send a Message</a>
+                <a class="font-medium text-green-500" href="{% url 'conversations:go' reservation.room.host.pk reservation.guest.pk %}">Send a Message</a>
             </div>
         </div>
-    
-        <div class="py-10 px-5 flex items-center w-full sm:w-1/2 lg:w-1/4 xl:w-1/5">
+        {% if reservation.status == 'confirmed' and reservation.is_finished %}
+        {% if reservation.status != 'canceled' %}
+        <form action="{% url 'reviews:create-review' reservation.room.pk %}" method="POST" class="w-11/12 sm:w-1/2 mx-auto mt-5">
+            {% csrf_token %}
+            <span class="font-semibold text-2xl text-center w-full block mb-5">Write your review</span>
+                {{form}}
+                <button class="btn-link mt-5 mb-3">Submit Review</button>
+            </form>
+            <a class="btn-link bg-gray-400 w-11/12 sm:w-1/2 mx-auto mb-3" href="{% url 'users:my-reservations' user.pk %}">Back to Room Reservations</a>
+        {% else %}
+            <div class="py-10 px-5 flex flex-col items-center w-full sm:w-1/2 lg:w-1/4 xl:w-1/5">
             
-            {% if reservation.status == 'pending' %}
-            <a class="btn-link block mx-auto px-3 mb-5" href="#">Cancel Reservation</a>
-             {% if reservation.room.host == user %}
-             <a class="btn-link block px-5" href="#">Confirm Reservation</a>
+            {% if reservation.room.host == user and reservation.status == 'pending' %}
+            <a class="btn-link block mx-auto px-3 mb-3" href="{% url 'reservations:edit' reservation.pk 'confirm' %}">Confirm Reservation</a>
             {% endif %}
-              
+            {% if reservation.status == 'pending' %}
+             <a class="btn-link block px-5 mb-3" href="{% url 'reservations:edit' reservation.pk 'cancel' %}">Cancel Reservation</a>
+             {% endif %}
+             <a class="btn-link bg-gray-400" href="{% url 'users:my-reservations' user.pk %}">Back to Room Reservations</a>
+            {% endif %}
+            {% endif %}
+            {% if reservation.status == 'canceled' %}
+            <a class="btn-link bg-gray-400 mobile sm:w-1/2 lg:w-1/4 xl:w-1/5 m-5" href="{% url 'users:my-reservations' user.pk %}">Back to Room Reservations</a>
             {% endif %}
         </div>
+        
     </div>
 
 </div>
 
+                <!-- <script>
+                    function goBack() {
+                      window.history.back()
+                    }
+                    </script> -->
 
 {% endblock content %}
