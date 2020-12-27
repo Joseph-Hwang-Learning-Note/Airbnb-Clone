@@ -105,7 +105,11 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+            "NAME": os.environ.get("RDS_NAME"),
+            "PASSWORD": os.environ.get("RDS_PASSWORD"),
+            "PORT": "5432",
+            "USER": os.environ.get("RDS_USER"),
+            "HOST": os.environ.get("RDS_HOST"),
         }
     }
 
