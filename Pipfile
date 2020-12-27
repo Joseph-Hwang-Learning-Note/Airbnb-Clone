@@ -12,6 +12,9 @@ django-dotenv = "*"
 requests = "*"
 pipenv-to-requirements = "*"
 sentry-sdk = "==0.13.2"
+gunicorn = "*"
+django-heroku = "*"
+whitenoise = "*"
 
 [dev-packages]
 flake8 = "*"

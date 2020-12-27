@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Debug with Sentry when you uploaded your code in aws or sth
 
@@ -29,7 +30,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 DEBUG = os.environ.get("DEBUG")
 
 # You MUST read about below!!!
-ALLOWED_HOSTS = [".elasticbeanstalk.com"]
+ALLOWED_HOSTS = [".elasticbeanstalk.com", "127.0.0.1"]
 
 # When wanna see 404
 # DEBUG = False
@@ -64,6 +65,7 @@ INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -180,3 +182,8 @@ LOGIN_URL = "/users/login"
 # Locale
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+
+
+# Django-heroku
+
+django_heroku.settings(locals())
