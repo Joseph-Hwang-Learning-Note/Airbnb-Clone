@@ -15,11 +15,12 @@ sentry-sdk = "==0.13.2"
 gunicorn = "*"
 django-heroku = "*"
 whitenoise = "*"
+pathspec = "==0.5.8"
 
 [dev-packages]
 flake8 = "*"
 black = "*"
-awsebcli = "*"
+pathspec = "==0.8.0"
 
 [requires]
 python_version = "3.9"
