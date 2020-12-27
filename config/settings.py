@@ -99,36 +99,36 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# if DEBUG:
+if DEBUG:
 
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.sqlite3",
-#             "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql",
-#             "NAME": os.environ.get("RDS_NAME"),
-#             "PASSWORD": os.environ.get("RDS_PASSWORD"),
-#             "PORT": "5432",
-#             "USER": os.environ.get("RDS_USER"),
-#             "HOST": os.environ.get("RDS_HOST"),
-#         }
-#     }
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "nqhcdfitlcnyle",
-        "PASSWORD": "9e612a15d133aab0c8ce399369ba9667057b613e1074f36e9d753b799ab96daa",
-        "PORT": "5432",
-        "USER": "nqhcdfitlcnyle",
-        "HOST": "ec2-52-203-182-92.compute-1.amazonaws.com",
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("RDS_NAME"),
+            "PASSWORD": os.environ.get("RDS_PASSWORD"),
+            "PORT": "5432",
+            "USER": os.environ.get("RDS_USER"),
+            "HOST": os.environ.get("RDS_HOST"),
+        }
+    }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "nqhcdfitlcnyle",
+#         "PASSWORD": "9e612a15d133aab0c8ce399369ba9667057b613e1074f36e9d753b799ab96daa",
+#         "PORT": "5432",
+#         "USER": "nqhcdfitlcnyle",
+#         "HOST": "ec2-52-203-182-92.compute-1.amazonaws.com",
+#     }
+# }
 
 
 # DATABASES = {
