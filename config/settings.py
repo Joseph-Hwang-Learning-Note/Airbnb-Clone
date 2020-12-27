@@ -24,7 +24,7 @@ SECRET_KEY = "gg=f@63g@s)0uq*#9awkme4ba^$v2j7i57o-3qn!l0eyompruq"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(os.environ.get("DEBUG"))
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -94,7 +94,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if DEBUG:
+if DEBUG is not True:
 
     DATABASES = {
         "default": {
