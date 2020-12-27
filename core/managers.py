@@ -1,3 +1,4 @@
+from django.contrib.auth.models import UserManager
 from django.db import models
 
 
@@ -7,3 +8,7 @@ class CustomModelManager(models.Manager):
             return self.get(**kwargs)
         except self.model.DoesNotExist:
             return None  # not None = True
+
+
+class CustomUserManager(CustomModelManager, UserManager):
+    pass
