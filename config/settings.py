@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(os.environ.get("DEBUG"))
-DEBUG = os.environ.get("DEBUG")
+DEBUG = True
 
 # You MUST read about below!!!
 ALLOWED_HOSTS = [".elasticbeanstalk.com", "nbnb-clone.herokuapp.com"]
