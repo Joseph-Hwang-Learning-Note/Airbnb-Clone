@@ -20,13 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "gg=f@63g@s)0uq*#9awkme4ba^$v2j7i57o-3qn!l0eyompruq"
+SECRET_KEY = os.environ.get("DJANGO_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(os.environ.get("DEBUG"))
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# You MUST read about below!!!
+ALLOWED_HOSTS = [".elasticbeanstalk.com"]
 
 # When wanna see 404
 # DEBUG = False
