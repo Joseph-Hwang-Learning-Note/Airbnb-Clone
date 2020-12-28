@@ -1,3 +1,4 @@
+from os import error
 from django import template
 from lists import models as list_models
 
@@ -13,4 +14,8 @@ def on_favs(context, room):
         the_list = list_models.List.objects.get_or_create(
             user=user, name="My Favourite Houses"
         )
-        return room in the_list.rooms.all()
+        if the_list:
+            return room in the_list.rooms.all()
+        else:
+            return "is not boolean"
+    return "is not boolean"
