@@ -40,7 +40,7 @@
       
     </div> -->
     {% else %}
-    {% if not request.session.is_hosting %}
+    {% if not request.session.is_hosting and user.is_authenticated %}
     <div class="w-full">
       {% for calendar in room.get_calendars %}
       <div class="mb-20 flex flex-col items-center">
