@@ -30,7 +30,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 DEBUG = True
 
 # You MUST read about below!!!
-ALLOWED_HOSTS = [".elasticbeanstalk.com", "nbnb-clone.herokuapp.com"]
+ALLOWED_HOSTS = ["nbnb-clone.herokuapp.com", "1270.0.0.1"]
+# ".elasticbeanstalk.com"
 
 # When wanna see 404
 # DEBUG = False
