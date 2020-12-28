@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 DEBUG = True
 
 # You MUST read about below!!!
-ALLOWED_HOSTS = ["nbnb-clone.herokuapp.com", "1270.0.0.1"]
+ALLOWED_HOSTS = ["nbnb-clone.herokuapp.com", "127.0.0.1"]
 # ".elasticbeanstalk.com"
 
 # When wanna see 404
@@ -205,5 +205,7 @@ LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 
 # Django-heroku
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 django_heroku.settings(locals())
