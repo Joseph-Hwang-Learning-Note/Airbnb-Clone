@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = bool(os.environ.get("DEBUG"))
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG"))
 
 # You MUST read about below!!!
 ALLOWED_HOSTS = ["nbnb-clone.herokuapp.com", "127.0.0.1"]
@@ -123,11 +123,11 @@ else:
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "nqhcdfitlcnyle",
-#         "PASSWORD": "9e612a15d133aab0c8ce399369ba9667057b613e1074f36e9d753b799ab96daa",
+#         "NAME": "",
+#         "PASSWORD": "",
 #         "PORT": "5432",
-#         "USER": "nqhcdfitlcnyle",
-#         "HOST": "ec2-52-203-182-92.compute-1.amazonaws.com",
+#         "USER": "",
+#         "HOST": "",
 #     }
 # }
 
