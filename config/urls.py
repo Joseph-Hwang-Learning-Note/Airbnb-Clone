@@ -33,7 +33,7 @@ urlpatterns = [
     url(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
 ]
 urlpatterns = urlpatterns + static(
-    settings.MEDIA_url, document_root=settings.MEDIA_ROOT
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
 
 if settings.DEBUG:
