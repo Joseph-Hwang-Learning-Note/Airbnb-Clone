@@ -37,7 +37,7 @@
         <a class="btn-link mt-3 bg-green-400" href="{% url 'rooms:create' %}">Create Room</a>
         {% else %}
         <a class="btn-link mt-3 bg-green-400" href="{% url 'users:my-reservations' user.pk %}">My Reservations</a>
-        <a class="btn-link mt-3 bg-yellow-400" href="{% url 'lists:see-favs' %}">My Favourites</a>
+        <!-- <a class="btn-link mt-3 bg-yellow-400" href="{% url 'lists:see-favs' %}">My Favourites</a> -->
         {% endif %}
           
         {% endif %}
