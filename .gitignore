@@ -148,3 +148,4 @@ node_modules/
 !.elasticbeanstalk/*.global.yml
 
 python-getting-started/
+temporary_local/

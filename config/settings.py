@@ -15,14 +15,6 @@ import django_heroku
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-sentry_sdk.init(
-    dsn="https://790d4f4edeae4fa4a127d78917d77ba8@o496976.ingest.sentry.io/5572417",
-    integrations=[DjangoIntegration()],
-    traces_sample_rate=1.0,
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True,
-)
 
 # Debug with Sentry when you uploaded your code in aws or sth
 
@@ -70,7 +62,7 @@ PROJECT_APPS = [
     "conversations.apps.ConversationsConfig",
 ]
 
-THIRD_PARTY_APPS = ["django_countries", "django_seed"]
+THIRD_PARTY_APPS = ["django_countries", "django_seed", "storages"]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
 
@@ -214,6 +206,27 @@ LOGIN_URL = "/users/login"
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
+if not DEBUG:
+
+    sentry_sdk.init(
+        dsn="https://790d4f4edeae4fa4a127d78917d77ba8@o496976.ingest.sentry.io/5572417",
+        integrations=[DjangoIntegration()],
+        traces_sample_rate=1.0,
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True,
+    )
+
+    # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    # STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    # AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    # AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    # AWS_STORAGE_BUCKET_NAME = "nbnb-clone-on-heroku"
+    # AWS_AUTO_CREATE_BUCKET = True
+    # AWS_BUCKET_ACL = "public-read"
+
+    # AWS_S3_CUSTOM_DOMAIN =f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    # STATIC_URL =f"https://{AWS_S3_CUSTOM_DOMAIN}/static"
 
 # Django-heroku
 

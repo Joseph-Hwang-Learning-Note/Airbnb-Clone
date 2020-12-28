@@ -16,6 +16,8 @@ gunicorn = "*"
 django-heroku = "*"
 whitenoise = "*"
 pathspec = "==0.5.8"
+django-storages = "*"
+boto3 = "*"
 
 [dev-packages]
 flake8 = "*"
